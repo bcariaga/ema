@@ -81,7 +81,7 @@ namespace Ema.Controllers
             {
                 return NotFound();
             }
-            return View(movimiento);
+            return View("Edit", movimiento);
         }
 
         // POST: Movimientos/Edit/5

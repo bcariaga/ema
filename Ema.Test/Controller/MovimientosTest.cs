@@ -14,6 +14,8 @@ namespace Ema.Test.Controller
 {
     public class MovimientosControllerTest
     {
+        #region Configuración
+
         internal IMovimientoService mockService;
         internal MovimientosController controller;
 
@@ -75,6 +77,8 @@ namespace Ema.Test.Controller
             };
         }
 
+        #endregion
+
 
         [Fact]
         public async void GetIndexView()
@@ -102,19 +106,35 @@ namespace Ema.Test.Controller
             Assert.NotNull(viewResult);
 
             Assert.Equal("Create", viewResult.ViewName);
-
-            Assert.Equal(typeof(Movimiento), viewResult.Model.GetType());
         }
 
         [Fact]
-        public async void TestCreateMovimiento()
+        public async void TestCreateMovimientoByView()
         {
             var mockEntity = GetMovimiento();
 
             await controller.Create(mockEntity);
-            
+
             //check if entity exist
             Assert.Equal(mockEntity, mockService.FindById(mockEntity.Id));
+        }
+
+        [Fact]
+        public async void GetEditView()
+        {
+            var mockObject = GetMovimiento();
+
+            mockService.Add(mockObject);
+
+            var editResult = await controller.Edit(mockObject.Id);
+
+            var viewResult = editResult as ViewResult;
+
+            Assert.NotNull(viewResult);
+
+            Assert.Equal("Edit", viewResult.ViewName);
+
+            Assert.Equal(mockObject, viewResult.Model);
         }
     }
 }
