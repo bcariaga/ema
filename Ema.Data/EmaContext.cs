@@ -9,6 +9,7 @@ namespace Ema.Data
     {
         public EmaContext(DbContextOptions options) : base(options) { }
 
+       
         public DbSet<Movimiento> Movimientos { get; set; }
     }
 }

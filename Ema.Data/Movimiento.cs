@@ -7,8 +7,8 @@ using System.Text;
 namespace Ema.Data
 {
     [Table("Movimiento")]
-    public class Movimiento
-    {
+    public class Movimiento 
+    { 
         [Key]
         public int Id { get; set; }
 
