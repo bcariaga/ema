@@ -109,7 +109,7 @@ namespace Ema.Test.Controller
         }
 
         [Fact]
-        public async void TestCreateMovimientoByView()
+        public async void CreateMovimientoByView()
         {
             var mockEntity = GetMovimiento();
 
@@ -135,6 +135,23 @@ namespace Ema.Test.Controller
             Assert.Equal("Edit", viewResult.ViewName);
 
             Assert.Equal(mockObject, viewResult.Model);
+        }
+
+        [Fact]
+        public async void EditMovimientoByView()
+        {
+            var mockEntity = GetMovimiento();
+
+            mockService.Add(mockEntity);
+
+            var updatedMockEntity = mockEntity;
+
+            updatedMockEntity.Importe = 999;
+            updatedMockEntity.Descripcion = "New MockData";
+
+            await controller.Edit(updatedMockEntity.Id, updatedMockEntity);
+            
+            Assert.Equal(updatedMockEntity, mockService.FindById(mockEntity.Id));
         }
     }
 }

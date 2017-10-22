@@ -62,14 +62,14 @@ namespace Ema.Test.Mocks
 
         public void Update(Movimiento entity)
         {
-            Delete(FindById(entity.Id));
+            Delete(entity.Id);
 
             Add(entity);
         }
 
         public async Task UpdateAsync(Movimiento entity)
         {
-            Delete(FindById(entity.Id));
+            Delete(entity.Id);
 
             Add(entity);
         }
