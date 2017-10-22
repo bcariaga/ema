@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using Ema.Data;
+using Ema.Service;
 
 namespace Ema
 {
@@ -28,6 +29,8 @@ namespace Ema
             //inyecto las opciones para el context (en este caso la connString)
             services.AddDbContext<EmaContext>(options => 
                 options.UseSqlServer( Configuration.GetConnectionString("EmaContext")) );
+
+            services.AddTransient<IMovimientoService, MovimientoService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

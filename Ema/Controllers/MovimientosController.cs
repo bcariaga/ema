@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using Ema.Data;
+﻿using Ema.Data;
 using Ema.Service;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
 
 namespace Ema.Controllers
 {
@@ -14,15 +10,22 @@ namespace Ema.Controllers
     {
         private readonly IMovimientoService movimientoService;
 
-        public MovimientosController(EmaContext context)
+        //public MovimientosController(EmaContext context)
+        //{
+        //    movimientoService = new MovimientoService(context);
+        //}
+
+        //para UT, hasta que tenga una mejor idea
+        //Jo JO lo inyecto desde el startup.cs
+        public MovimientosController(IMovimientoService service)
         {
-            movimientoService = new MovimientoService(context);
+            movimientoService = service;
         }
 
         // GET: Movimientos
         public async Task<IActionResult> Index()
         {
-            return View(await movimientoService.GetAllAsync());
+            return View(nameof(Index), await movimientoService.GetAllAsync());
         }
 
         // GET: Movimientos/Details/5
@@ -45,7 +48,7 @@ namespace Ema.Controllers
         // GET: Movimientos/Create
         public IActionResult Create()
         {
-            return View();
+            return View("Create");
         }
 
         // POST: Movimientos/Create
